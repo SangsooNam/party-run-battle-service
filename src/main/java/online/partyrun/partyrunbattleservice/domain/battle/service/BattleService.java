@@ -97,10 +97,9 @@ public class BattleService {
         battle.changeBattleStatus(BattleStatus.RUNNING);
 
         final LocalDateTime now = LocalDateTime.now(clock);
-        final LocalDateTime startTime = now.plusSeconds(10);
-        battle.setStartTime(now, startTime);
+        battle.setStartTime(now);
         battleRepository.save(battle);
 
-        return new BattleStartTimeResponse(startTime);
+        return new BattleStartTimeResponse(battle.getStartTime());
     }
 }

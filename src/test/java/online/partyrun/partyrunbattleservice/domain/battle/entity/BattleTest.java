@@ -1,19 +1,17 @@
 package online.partyrun.partyrunbattleservice.domain.battle.entity;
 
-import static org.assertj.core.api.Assertions.*;
-
 import online.partyrun.partyrunbattleservice.domain.battle.exception.*;
 import online.partyrun.partyrunbattleservice.domain.runner.entity.Runner;
 import online.partyrun.partyrunbattleservice.domain.runner.entity.RunnerStatus;
 import online.partyrun.partyrunbattleservice.domain.runner.exception.RunnerNotFoundException;
-
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("Battle")
 class BattleTest {
@@ -190,36 +188,29 @@ class BattleTest {
 
         @Nested
         @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-        class 시작_시간이_생성_시간_보다_같거나_이후라면 {
+        class 현재시각이_주어지면 {
 
-            LocalDateTime now = LocalDateTime.now();
-            LocalDateTime startTime = now.plusSeconds(1);
+            LocalDateTime now = LocalDateTime.of(2023,7,11,10,25,0,0);
 
             @Test
             @DisplayName("시작 시간을 설정한다")
             void setStartTime() {
-                배틀.setStartTime(now, startTime);
+                배틀.setStartTime(now);
 
-                assertThat(배틀.getStartTime()).isEqualTo(startTime);
+                assertThat(배틀.getStartTime()).isEqualTo(now.plusSeconds(5));
             }
         }
 
         @Nested
         @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-        class 시작_시간이_생성_시간_보다_같거나_이전이라면 {
+        class 현재_시각이_null이라면 {
 
-            public static Stream<Arguments> invalidStartTime() {
-                final LocalDateTime now = LocalDateTime.now();
-                return Stream.of(Arguments.of(now, now), Arguments.of(now, now.minusSeconds(1)));
-            }
+            LocalDateTime now = null;
 
-            @ParameterizedTest
-            @MethodSource("invalidStartTime")
             @DisplayName("예외를 던진다.")
-            void throwException(LocalDateTime now, LocalDateTime startTime) {
-
-                assertThatThrownBy(() -> 배틀.setStartTime(now, startTime))
-                        .isInstanceOf(InvalidBattleStartTimeException.class);
+            void throwException() {
+                assertThatThrownBy(() -> 배틀.setStartTime(now))
+                        .isInstanceOf(InvalidNowTimeException.class);
             }
         }
     }

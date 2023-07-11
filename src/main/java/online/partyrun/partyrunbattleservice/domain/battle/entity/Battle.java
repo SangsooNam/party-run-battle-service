@@ -22,6 +22,7 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Battle {
     static int MIN_DISTANCE = 1;
+    static int START_SECOND_AFTER_NOW = 5;
 
     @Id String id;
     int distance;
@@ -86,15 +87,8 @@ public class Battle {
         return runner.getStatus();
     }
 
-    public void setStartTime(LocalDateTime now, LocalDateTime startTime) {
-        validateStartTime(now, startTime);
-        this.startTime = startTime;
-    }
-
-    private void validateStartTime(LocalDateTime now, LocalDateTime startTime) {
-        if (!startTime.isAfter(now)) {
-            throw new InvalidBattleStartTimeException(startTime, now);
-        }
+    public void setStartTime(LocalDateTime now) {
+        this.startTime = Objects.requireNonNull(now.plusSeconds(START_SECOND_AFTER_NOW));
     }
 
     public int getNumberOfRunners() {
