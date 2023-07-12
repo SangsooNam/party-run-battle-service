@@ -43,4 +43,8 @@ public class Runner {
             throw new RunnerStatusCannotBeChangedException(status);
         }
     }
+
+    public boolean isRunning() {
+        return this.status.isRunning();
+    }
 }

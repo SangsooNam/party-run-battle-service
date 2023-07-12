@@ -88,4 +88,9 @@ public class BattleService {
 
         return new BattleStartTimeResponse(battle.getStartTime());
     }
+
+    public Battle findBy(String battleId, String runnerId) {
+        return battleRepository.findByIdAndRunnersId(battleId, runnerId)
+                .orElseThrow(() -> new BattleNotFoundException(battleId, runnerId));
+    }
 }
