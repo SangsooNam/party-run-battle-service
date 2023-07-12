@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+
 import online.partyrun.partyrunbattleservice.domain.battle.entity.Battle;
 import online.partyrun.partyrunbattleservice.domain.battle.service.BattleService;
 import online.partyrun.partyrunbattleservice.domain.record.dto.RecordRequest;
@@ -14,6 +15,7 @@ import online.partyrun.partyrunbattleservice.domain.record.entity.Records;
 import online.partyrun.partyrunbattleservice.domain.record.exception.BattleIsNotRunningException;
 import online.partyrun.partyrunbattleservice.domain.record.exception.RunnerIsNotRunningException;
 import online.partyrun.partyrunbattleservice.domain.record.repository.RecordDao;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,14 +30,17 @@ public class RecordService {
     BattleService battleService;
     RecordDao recordDao;
 
-    public RunnerDistanceResponse calculateDistance(String battleId, String runnerId, RecordRequests request) {
+    public RunnerDistanceResponse calculateDistance(
+            String battleId, String runnerId, RecordRequests request) {
         final Battle battle = battleService.findBy(battleId, runnerId);
         validateIsRunning(battle, runnerId);
 
         final Records records = createNewRecords(request);
-        Records newRecords = recordDao.findLatestRunnerRecord(battleId, runnerId)
-                .map(records::updateDistance)
-                .orElseGet(() -> newRunnerRecords(records, battle.getStartTime()));
+        Records newRecords =
+                recordDao
+                        .findLatestRunnerRecord(battleId, runnerId)
+                        .map(records::updateDistance)
+                        .orElseGet(() -> newRunnerRecords(records, battle.getStartTime()));
 
         recordDao.pushNewRecords(battleId, runnerId, newRecords.getRecords());
 
@@ -60,11 +65,8 @@ public class RecordService {
     }
 
     private Records createNewRecords(RecordRequests request) {
-        final List<Record> records = request.getGpsDatas()
-                .stream()
-                .map(RecordRequest::toEntity)
-                .sorted()
-                .toList();
+        final List<Record> records =
+                request.getGpsDatas().stream().map(RecordRequest::toEntity).sorted().toList();
 
         return new Records(records);
     }

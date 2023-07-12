@@ -42,8 +42,7 @@ public class Records {
     }
 
     public boolean hasBefore(LocalDateTime time) {
-        return this.records.stream()
-                .anyMatch(record -> record.isBefore(time));
+        return this.records.stream().anyMatch(record -> record.isBefore(time));
     }
 
     public double getDistance() {

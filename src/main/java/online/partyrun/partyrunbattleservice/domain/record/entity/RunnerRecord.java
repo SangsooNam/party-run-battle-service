@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -15,8 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RunnerRecord {
 
-    @Id
-    String id;
+    @Id String id;
     String battleId;
     String runnerId;
     List<Record> records;

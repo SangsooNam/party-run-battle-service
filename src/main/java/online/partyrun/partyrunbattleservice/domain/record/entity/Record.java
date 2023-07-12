@@ -9,7 +9,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Record implements Comparable<Record>{
+public class Record implements Comparable<Record> {
     Location location;
     LocalDateTime time;
     double distance;
@@ -21,7 +21,8 @@ public class Record implements Comparable<Record>{
         this.distance = distance;
     }
 
-    public static Record of(double longitude, double latitude, double altitude, LocalDateTime time) {
+    public static Record of(
+            double longitude, double latitude, double altitude, LocalDateTime time) {
         return Record.builder()
                 .location(Location.of(longitude, latitude, altitude))
                 .time(time)

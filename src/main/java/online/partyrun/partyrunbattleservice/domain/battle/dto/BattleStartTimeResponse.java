@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class BattleStartTimeResponse {
 
     String type = "start";
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     LocalDateTime startTime;

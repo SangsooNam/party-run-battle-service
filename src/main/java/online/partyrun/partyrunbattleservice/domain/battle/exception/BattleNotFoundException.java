@@ -7,7 +7,7 @@ public class BattleNotFoundException extends NotFoundException {
         super(String.format("%s 에 해당하는 배틀이 존재하지 않습니다.", battleId));
     }
 
-    public BattleNotFoundException(String battleId,String runnerId) {
+    public BattleNotFoundException(String battleId, String runnerId) {
         super(String.format("%s 배틀에 %s 러너가 존재하는 배틀이 존재하지 않습니다.", battleId, runnerId));
     }
 }

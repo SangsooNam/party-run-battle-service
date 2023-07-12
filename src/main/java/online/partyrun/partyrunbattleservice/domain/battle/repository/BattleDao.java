@@ -1,17 +1,19 @@
 package online.partyrun.partyrunbattleservice.domain.battle.repository;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
 import online.partyrun.partyrunbattleservice.domain.battle.entity.Battle;
 import online.partyrun.partyrunbattleservice.domain.runner.entity.RunnerStatus;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-
-import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository
 @RequiredArgsConstructor

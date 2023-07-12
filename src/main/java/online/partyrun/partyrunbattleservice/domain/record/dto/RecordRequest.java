@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
 import online.partyrun.partyrunbattleservice.domain.record.entity.Record;
 
 import java.time.LocalDateTime;
@@ -26,11 +27,15 @@ public class RecordRequest {
 
     @Override
     public String toString() {
-        return "RecordRequest{" +
-                "longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", altitude=" + altitude +
-                ", gpsTime=" + gpsTime +
-                '}';
+        return "RecordRequest{"
+                + "longitude="
+                + longitude
+                + ", latitude="
+                + latitude
+                + ", altitude="
+                + altitude
+                + ", gpsTime="
+                + gpsTime
+                + '}';
     }
 }
